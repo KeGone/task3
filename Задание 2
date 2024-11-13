@@ -1,0 +1,23 @@
+#include <iostream>
+#include <vector>
+int main() {
+    std::vector<int> processingTimes;
+    int time;
+    std::cout << "Введите время обработки каждой детали на трех станках (группами по 3 числа):" << std::endl;
+    while (std::cin >> time) {
+        processingTimes.push_back(time);
+        if (processingTimes.size() % 3 == 0) {
+            int totalProcessingTime = 0;
+            for (int i = processingTimes.size() - 3; i < processingTimes.size(); i++) {
+                totalProcessingTime += processingTimes[i];
+            }
+            std::cout << "Общее время обработки для последней детали: " << totalProcessingTime << std::endl;
+        }
+    }
+    int totalTime = 0;
+    for (int t : processingTimes) {
+        totalTime += t;
+    }
+    std::cout << "Общее время обработки всех деталей: " << totalTime << std::endl;
+    return 0;
+}
