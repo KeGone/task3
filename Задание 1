@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+int main() {
+    double k, p, r;
+    cout << "Введите сумму кредита (k): ";
+    cin >> k;
+    cout << "Введите процентную ставку (p): ";
+    cin >> p;
+    cout << "Введите ежегодную прибыль (r): ";
+    cin >> r;
+    double annualPayment = k * (p / 100);
+    int years = 0;
+    while (k > 0) {
+        k += annualPayment;
+        k -= r;
+        years++;
+        if (k <= 0) {
+            break;
+        }
+    }
+    if (k <= 0) {
+        cout << "Кредит будет погашен через " << years << " лет." << endl;
+    } else {
+        cout << "Кредит не может быть погашен." << endl;
+    }
+    return 0;
+}
