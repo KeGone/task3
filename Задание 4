@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+int main() {
+    double u, v, w; // Суточный рацион коровы (сено, силос, комбикорм)
+    double s, t, f; // Остатки кормов (сено, силос, комбикорм)
+    int k; // Количество коров
+    double p, q, r, t_loss; // Проценты потерь
+    // Ввод данных
+    cout << "Введите суточный рацион (сено, силос, комбикорм): ";
+    cin >> u >> v >> w;
+    cout << "Введите остатки кормов (сено, силос, комбикорм): ";
+    cin >> s >> t >> f;
+    cout << "Введите количество коров: ";
+    cin >> k;
+    cout << "Введите проценты потерь (погибает, гниет, разворовывается, распродается): ";
+    cin >> p >> q >> r >> t_loss;
+    // Приведение процентов к десятичным дробям
+    p /= 100.0;
+    q /= 100.0;
+    r /= 100.0;
+    t_loss /= 100.0;
+    double daily_feed_cows = k * (u + v + w); // Суточный расход корма на все коров
+    double days_until_feed_exhausted[3]; // Для хранения дней до истощения кормов
+    // Расчет дней до истощения каждого корма
+    days_until_feed_exhausted[0] = s / (k * u * (1 - q)); // Сено
+    days_until_feed_exhausted[1] = t / (k * v * (1 - r)); // Силос
+    days_until_feed_exhausted[2] = f / (k * w * (1 - t_loss)); // Комбикорм
+    // Поиск наименьшего значения
+    double min_days = min(min(days_until_feed_exhausted[0], days_until_feed_exhausted[1]), days_until_feed_exhausted[2]);
+    // Расчет, когда не получится кормить всех
+    double total_cows = k;
+    double total_days = 0;
+    while (total_cows > 0) {
+        total_days++;
+        total_cows *= (1 - p); // Уменьшаем количество коров
+    }
+    cout << "Корма закончатся через " << min_days << " дней." << endl;
+    cout << "Не получится кормить всех коров через " << total_days << " дней." << endl;
+    return 0;
+}
