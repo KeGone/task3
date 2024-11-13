@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+struct Client {
+    int arrival_time; 
+    int service_duration;
+};
+int main() {
+    int T; 
+    std::cout << "Введите продолжительность смены T: ";
+    std::cin >> T;
+    int n; 
+    std::cout << "Введите количество клиентов: ";
+    std::cin >> n;
+    std::vector<Client> clients(n);
+    for (int i = 0; i < n; ++i) {
+        std::cout << "Введите момент прихода и продолжительность обслуживания для клиента " << i + 1 << ": ";
+        std::cin >> clients[i].arrival_time >> clients[i].service_duration;
+    }
+    int current_time = 0;
+    int served_clients = 0;
+    int total_service_time = 0;
+    for (const auto& client : clients) {
+        if (client.arrival_time >= current_time && current_time + client.service_duration <= T) {
+            current_time += client.service_duration;
+            total_service_time += client.service_duration;
+            served_clients++;
+        }
+    }
+    std::cout << "Количество обслуженных клиентов: " << served_clients << std::endl;
+    std::cout << "Общее время обслуживания: " << total_service_time << std::endl;
+
+    return 0;
+}
